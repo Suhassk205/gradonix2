@@ -1,0 +1,120 @@
+section.auth {
+  min-height: 100svh;
+  padding: var(--uxxsmall);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+section.auth>.auth-card {
+  width: 100%;
+  background-color: #0d6dfd0f;
+  max-width: 426px;
+  display: flex;
+  gap: var(--uxsmall);
+  flex-direction: column;
+  margin: 0 auto;
+  padding: var(--uxsmall);
+  border-radius: var(--uxxsmall);
+}
+
+section.auth>.auth-card * {
+  user-select: none;
+}
+
+section.auth h1.auth-title {
+  color: var(--color-font-light);
+  font-size: var(--font-larger);
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: var(--usmall);
+}
+
+section.auth input.email-input,
+section.auth input.password-input {
+  width: 100%;
+  padding: var(--uxxsmall);
+  border: 1px solid rgba(60, 65, 103, 0.826);
+  outline: none;
+  border-radius: var(--uxxsmall);
+}
+
+section.auth input:focus {
+  border: 1px solid var(--color-secondary-dark);
+}
+
+section.auth button {
+  width: 100%;
+  padding: var(--uxxsmall);
+  background-color: var(--color-secondary-dark);
+  color: var(--color-font-light);
+  border: none;
+  border-radius: var(--uxxsmall);
+  cursor: pointer;
+}
+
+section.auth .auth-err-msg {
+  display: flex;
+  align-items: center;
+  font-size: var(--font-xxsmall);
+  padding-inline: var(--uxsmall);
+  gap: var(--uxsmall);
+  color: #ff0000cc;
+  overflow: hidden;
+}
+
+.signup-link {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  /* Decreased font size */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-link p {
+  margin: 0;
+  margin-right: 0.2rem;
+  font-size: 0.8rem;
+}
+
+.signup-link a {
+  color: #0070f3;
+  text-decoration: none;
+  font-size: 0.8rem;
+  /* Decreased font size */
+  margin-left: 0.2rem;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+.signin-link {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  /* Decreased font size */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signin-link p {
+  margin: 0;
+  margin-right: 0.2rem;
+  font-size: 0.8rem;
+}
+
+.signin-link a {
+  color: #0070f3;
+  text-decoration: none;
+  font-size: 0.8rem;
+  /* Decreased font size */
+  margin-left: 0.2rem;
+}
+
+.signin-link a:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,119 @@
+/* ====== Not Found Page Styling ====== */
+
+/* Full Page Container */
+.notfound-page {
+    height: 100svh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--usmall);
+    background-color: var(--color-primary-dark);
+}
+
+/* Centered Content */
+.notfound-content {
+    max-width: 32rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--umedium);
+}
+
+/* Not Found Text */
+.notfound-text {
+    font-size: var(--font-large);
+    font-weight: 300;
+    color: var(--color-font-light);
+    letter-spacing: 0.05em;
+    text-align: center;
+    font-family: var(--font-family, Arial, Helvetica, sans-serif);
+}
+
+/* ====== SVG Styling ====== */
+.notfound-svg {
+    width: 100%;
+    max-width: var(--uxxxlarge);
+    aspect-ratio: 0;
+}
+
+/* Background & Decorative Elements */
+.pulse-circle {
+    fill: var(--color-primary-dark);
+}
+
+.frame-rect {
+    fill: none;
+    stroke: var(--color-secondary-light);
+    stroke-width: 2;
+}
+
+/* Floating Shapes */
+.circle-purple {
+    fill: var(--color-ternary-light);
+    opacity: 0.8;
+}
+
+.circle-blue {
+    fill: var(--color-ternary-dark);
+    opacity: 0.6;
+}
+
+.floating-shape {
+    fill: var(--color-secondary-light);
+    opacity: 0.4;
+}
+
+.floating-shape.purple {
+    fill: var(--color-ternary-light);
+}
+
+/* Dynamic Lines */
+.line-blue {
+    stroke: var(--color-secondary-light);
+    stroke-width: 2;
+    fill: none;
+}
+
+.line-purple {
+    stroke: var(--color-ternary-light);
+    stroke-width: 2;
+    fill: none;
+}
+
+/* Small Dots */
+.dot-blue {
+    fill: var(--color-secondary-light);
+}
+
+.dot-purple {
+    fill: var(--color-ternary-light);
+}
+
+.dot-dark {
+    fill: var(--color-ternary-dark);
+}
+
+/* ====== Back to Auth Button ====== */
+.action {
+    text-align: center;
+    margin-top: var(--uxsmall);
+}
+
+.back-to-auth-btn {
+    margin-top: var(--ularge);
+    padding: var(--usmaller) var(--ularge);
+    background-color: var(--color-secondary-light);
+    color: var(--color-font-dark);
+    border-radius: var(--uxsmall);
+    font-size: var(--font-smaller);
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    box-shadow: 0 4px 12px rgba(108, 142, 239, 0.3);
+    font-family: var(--font-family, Arial, Helvetica, sans-serif);
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}

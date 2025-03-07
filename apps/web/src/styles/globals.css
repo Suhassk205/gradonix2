@@ -1,0 +1,139 @@
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --font-xxsmall: 0.694rem;
+  --font-xsmall: 0.833rem;
+  --font-smaller: 1rem;
+  --font-small: 1.2rem;
+  --font-medium: 1.44rem;
+  --font-large: 1.728rem;
+  --font-larger: 2.074rem;
+  --font-xlarge: 2.488rem;
+  --font-xxlarge: 2.986rem;
+
+  --uxxsmall: 0.4rem;
+  --uxsmall: 0.6rem;
+  --usmaller: 0.8rem;
+  --usmall: 1.2rem;
+  --umedium: 1.6rem;
+  --ularge: 2.4rem;
+  --ularger: 3.2rem;
+  --uxlarge: 4.8rem;
+  --uxxlarge: 6.4rem;
+
+  /* old color theme */
+  --color-primary-light: #f8f9fa;
+  --color-primary-dark: #0d101f;
+
+  --color-secondary-light: #6c8eef;
+  --color-secondary-dark: #0d6efd;
+
+  --color-ternary-light: #7c3aed;
+  --color-ternary-dark: #6610f2;
+
+  --color-font-light: #f8f9fa;
+  --color-font-dark: #0d101f;
+
+  /* new color theme */
+  --color-violet-50: #f5f3ff;
+  --color-violet-100: #ede9fe;
+  --color-violet-200: #ddd6fe;
+  --color-violet-300: #c4b5fd;
+  --color-violet-400: #a78bfa;
+  --color-violet-500: #8b5cf6;
+  --color-violet-600: #7c3aed;
+  --color-violet-700: #6d28d9;
+  --color-violet-800: #5b21b6;
+  --color-violet-900: #4c1d95;
+  --color-violet-950: #2e1065;
+
+  --color-blue-50: #eff6ff;
+  --color-blue-100: #dbeafe;
+  --color-blue-200: #bfdbfe;
+  --color-blue-300: #93c5fd;
+  --color-blue-400: #60a5fa;
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+  --color-blue-700: #1d4ed8;
+  --color-blue-800: #1e40af;
+  --color-blue-900: #1e3a8a;
+  --color-blue-950: #172554;
+
+  --color-zinc-50: #fafafa;
+  --color-zinc-100: #f4f4f5;
+  --color-zinc-200: #e4e4e7;
+  --color-zinc-300: #d4d4d8;
+  --color-zinc-400: #a1a1aa;
+  --color-zinc-500: #71717a;
+  --color-zinc-600: #52525b;
+  --color-zinc-700: #3f3f46;
+  --color-zinc-800: #27272a;
+  --color-zinc-900: #18181b;
+  --color-zinc-950: #09090b;
+
+  --color-black: #000000;
+  --color-white: #ffffff;
+}
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+
+  background-color: transparent;
+  box-sizing: border-box;
+  user-select: text;
+}
+
+html,
+body {
+  height: 100svh;
+  background-color: var(--color-primary);
+  scroll-behavior: smooth;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+@media (pointer : fine) {
+  .scrollbar::-webkit-scrollbar {
+    width: var(--uxxsmall);
+    height: var(--uxxsmall);
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    background-color: #222;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background-color: #8a8a8a8a;
+    border-radius: 0.64rem;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: #8a8a8a;
+    border-radius: 0.64rem;
+  }
+
+  .scrollbar::-webkit-scrollbar-corner {
+    display: none;
+  }
+}
+
+@media (width < 192px) {
+  body {
+    display: none;
+  }
+}

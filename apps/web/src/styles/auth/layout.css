@@ -1,0 +1,5 @@
+main {
+  min-height: 100svh;
+  position: relative;
+  background-color: var(--color-primary-dark);
+}

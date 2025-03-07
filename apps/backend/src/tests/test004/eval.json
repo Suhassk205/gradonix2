@@ -1,0 +1,19 @@
+{
+	"status": "Evaluated",
+	"question": {
+		"location": "./public/eval/test004/Q/Questions.pdf",
+		"publicURL": "http://localhost:8080/eval/test004/Q/Questions.pdf",
+		"size": 413206
+	},
+	"answer": {
+		"location": "./public/eval/test004/A/manita pandey.pdf",
+		"publicURL": "http://localhost:8080/eval/test004/A/manita pandey.pdf",
+		"size": 3859254
+	},
+	"model": {
+		"location": "./public/eval/test004/M/model-refence-answer.pdf",
+		"publicURL": "http://localhost:8080/eval/test004/M/model-refence-answer.pdf",
+		"size": 156698
+	},
+	"action": "Result"
+}

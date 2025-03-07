@@ -1,0 +1,60 @@
+{
+	"evaluationSummary": {
+		"totalMarks": 17,
+		"totalPossibleMarks": 25,
+		"percentage": "68.0"
+	},
+	"questionWiseBreakdown": [
+		{
+			"questionNumber": 1,
+			"questionText": "Analyze the role of government schemes in fostering women's empowerment in India. Discuss the challenges that hinder their implementation.",
+			"maximumMarks": 10,
+			"marksAwarded": 7,
+			"confidenceLevel": "high",
+			"justification": "Answer demonstrates good understanding of government schemes and challenges. Includes comprehensive coverage of political, economic and social aspects. Well-structured with clear categorization. However, lacks detailed analysis of implementation outcomes.",
+			"keywords": [
+				"BBBP",
+				"Ujjwala Yojana",
+				"MUDRA",
+				"Women's Reservation",
+				"POSHAN Abhiyan"
+			],
+			"illegibleContent": 0
+		},
+		{
+			"questionNumber": 2,
+			"questionText": "Examine the social and economic impacts of rapid urbanization on Indian society. Suggest measures to ensure sustainable urban development.",
+			"maximumMarks": 15,
+			"marksAwarded": 10,
+			"confidenceLevel": "medium",
+			"justification": "Answer covers major social impacts like declining solidarity, changing family structures and social mingling. Economic aspects discussed but lack depth. Measures for sustainable development are basic and could be more comprehensive.",
+			"keywords": [
+				"social solidarity",
+				"nuclear family",
+				"caste identity",
+				"regional disparity",
+				"urban governance"
+			],
+			"illegibleContent": 1,
+			"illegibleSections": [
+				"Some portions of economic impacts section",
+				"Parts of measures for sustainable development"
+			]
+		}
+	],
+	"strengthsAndWeaknesses": {
+		"strengths": [
+			"Good conceptual understanding of topics",
+			"Clear structure and organization of answers",
+			"Effective use of subheadings and points",
+			"Balanced coverage of different aspects"
+		],
+		"weaknesses": [
+			"Some sections are illegible or unclear",
+			"Analysis could be more detailed",
+			"Limited examples and case studies",
+			"Measures/suggestions lack specificity"
+		]
+	},
+	"evaluatorNotes": "Candidate shows good grasp of basic concepts but needs to work on handwriting clarity and depth of analysis. Answers would benefit from more specific examples and detailed examination of implementation aspects. Current affairs knowledge is adequate but could be enhanced. Recommended to practice answer writing with focus on legibility and analytical depth."
+}

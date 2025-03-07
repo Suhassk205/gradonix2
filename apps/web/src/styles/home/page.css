@@ -1,0 +1,494 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap");
+
+main.home {
+  position: relative;
+  min-height: 100svh;
+  background-color: var(--color-zinc-950);
+}
+
+.custom-pointer-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  pointer-events: none;
+}
+
+/* hero section */
+section.hero {
+  min-height: 768px;
+  background-image: linear-gradient(to bottom,
+      #8b5cf611 10%,
+      #3b82f611 60%,
+      var(--color-zinc-950));
+  display: grid;
+  place-items: center;
+}
+
+section.hero .intro {
+  max-width: 512px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--usmall);
+  padding: var(--uxsmall);
+}
+
+section.hero .intro>h1 {
+  text-align: center;
+  font-size: var(--ularger);
+  color: transparent;
+  background-clip: text;
+  background-size: 100% 200%;
+  background-image: linear-gradient(to bottom,
+      var(--color-zinc-200),
+      var(--color-zinc-200),
+      var(--color-zinc-800));
+}
+
+section.hero .intro>p {
+  text-align: center;
+  font-size: var(--font-small);
+}
+
+section.hero .intro>.button-container {
+  display: grid;
+  place-items: center;
+}
+
+section.hero .button-container .btn-cta {
+  user-select: none;
+  padding: var(--uxsmall);
+  border: none;
+  margin-bottom: var(--uxlarge);
+  border-radius: var(--uxsmall);
+  background-image: linear-gradient(var(--color-blue-600) 0%,
+      var(--color-blue-700) 60%,
+      var(--color-violet-800) 100%);
+  font-size: var(--font-small);
+  font-weight: 700;
+}
+
+/* innovation section */
+section.innovation {
+  position: relative;
+  background-color: var(--color-zinc-950);
+  width: 100%;
+  max-width: 1440px;
+  min-height: 768px;
+  margin-inline: auto;
+  display: block;
+  place-items: center;
+  overflow: hidden;
+  text-align: center;
+}
+
+section.innovation h2 {
+  font-size: var(--font-larger);
+  background-size: 200% 200%;
+  color: transparent;
+  background-repeat: no-repeat;
+  background-clip: text;
+  background-image: linear-gradient(135deg,
+      var(--color-zinc-200) 0%,
+      var(--color-blue-400),
+      var(--color-blue-600),
+      var(--color-blue-800) 100%);
+}
+
+section.innovation p {
+  margin-top: var(--umedium);
+  color: var(--color-zinc-400);
+  max-width: 720px;
+  line-height: 1.6;
+}
+
+section.innovation .highlight {
+  min-width: var(--usmall);
+  width: max-content;
+  min-height: var(--usmall);
+  background-color: var(--color-blue-500);
+  border-radius: var(--usmall);
+  padding: var(--uxsmall);
+  display: grid;
+  place-items: center;
+}
+
+section.innovation .innovation-card {
+  height: 100%;
+  background-color: var(--color-zinc-900);
+  border: 2px solid var(--color-zinc-800);
+  border-radius: var(--usmall);
+  padding: var(--ularge);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--uxsmall);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section.innovation .innovation-card>div {
+  font-size: var(--font-xxlarge);
+  color: var(--color-violet-800);
+}
+
+section.innovation .innovation-card h5 {
+  font-size: var(--font-medium);
+  color: var(--color-zinc-200);
+  margin: 0;
+}
+
+section.innovation .innovation-card .title {
+  font-weight: 700;
+  font-size: var(--font-larger);
+}
+
+section.innovation .innovation-card p {
+  font-size: var(--font-xsmall);
+  color: var(--color-zinc-400);
+  margin: 0;
+}
+
+section.innovation .cards {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  margin-left: 340px;
+  margin-top: 50px;
+  gap: var(--usmall);
+  grid-template-rows: 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+
+/* showcase section */
+
+section.showcase {
+  position: relative;
+  background-color: var(--color-zinc-950);
+  width: 100%;
+  max-width: 1440px;
+  max-height: 768px;
+  margin-inline: auto;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+section.showcase svg {
+  max-width: 100%;
+  max-height: 100%;
+  cursor: none;
+  display: grid;
+  place-items: center;
+}
+
+section.showcase h2 {
+  text-align: center;
+  font-size: var(--font-larger);
+  background-size: 200% 200%;
+  color: transparent;
+  background-repeat: no-repeat;
+  background-clip: text;
+  background-image: linear-gradient(135deg,
+      var(--color-zinc-200) 0%,
+      var(--color-violet-400),
+      var(--color-violet-600),
+      var(--color-violet-800) 100%);
+}
+
+section.showcase p {
+  margin-top: var(--umedium);
+  color: var(--color-zinc-400);
+}
+
+section.showcase .cursor {
+  min-width: var(--usmall);
+  width: max-content;
+  min-height: var(--usmall);
+  background-color: var(--color-violet-500);
+  border-radius: var(--usmall);
+  padding: var(--uxsmall);
+  display: grid;
+  place-items: center;
+}
+
+section.intro {
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-primary-dark);
+}
+
+section.intro .icon {
+  flex-grow: 1;
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+section.intro .action {
+  flex-shrink: 0;
+  width: 100%;
+  display: grid;
+  padding: var(--ularge);
+  place-items: center;
+}
+
+
+
+.svg-container {
+  aspect-ratio: 1;
+  width: 50%;
+  position: relative;
+}
+
+svg {
+  aspect-ratio: 1;
+  padding: var(--uxxsmall);
+}
+
+section.intro .btn-cta {}
+
+@media (orientation: landscape) {
+  svg {
+    height: 100%;
+  }
+}
+
+@media (orientation: portrait) {
+  svg {
+    width: 100%;
+  }
+}
+
+.benefits-wrapper {
+  min-height: 100vh;
+  /* No extra space */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  /* Align content to the top */
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+  /* Add some padding for smaller screens */
+}
+
+.benefits-heading {
+  font-size: 2.5rem;
+  /* Reduced title text size */
+  font-weight: 900;
+  /* Bold font weight */
+  letter-spacing: -1px;
+  background: linear-gradient(to right,
+      var(--color-blue-600),
+      var(--color-blue-200));
+  /* Light blue to white gradient */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 40px;
+  /* Reduced margin to ensure space below the title */
+  text-align: center;
+}
+
+.cards-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  /* Adjusted height to reduce space */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+  /* padding: 20px 0; Adjusted padding to prevent overlapping */
+  /* margin-top: 2 00px; Increased margin-top to add space above the cards */
+  padding-block: var(--uxxlarge);
+}
+
+.card {
+  position: absolute;
+  width: 300px;
+  height: 400px;
+  border-radius: 20px;
+  transform-style: preserve-3d;
+  transition:
+    transform 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+    opacity 1s ease,
+    left 1s ease;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 20px;
+}
+
+.card-back {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-front {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transform: rotateY(180deg);
+}
+
+.card-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #00f7ff;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  /* Same text size as content */
+  font-weight: 700;
+  /* Same font weight as content */
+  margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.8);
+  /* Same text color as content */
+}
+
+.card-text {
+  font-size: 1rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Initial Stacked Layout */
+.card:nth-child(1) {
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0) rotateY(0deg);
+  z-index: 3;
+}
+
+.card:nth-child(2) {
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0) rotateY(0deg) translateZ(-20px);
+  z-index: 2;
+}
+
+.card:nth-child(3) {
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0) rotateY(0deg) translateZ(-40px);
+  z-index: 1;
+}
+
+/* Scrolled State - Horizontal Alignment */
+.cards-container.scrolled .card:nth-child(1) {
+  top: 0;
+  left: 20%;
+  transform: translate(-50%, 0) rotateY(180deg);
+}
+
+.cards-container.scrolled .card:nth-child(2) {
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0) rotateY(180deg);
+}
+
+.cards-container.scrolled .card:nth-child(3) {
+  top: 0;
+  left: 80%;
+  transform: translate(-50%, 0) rotateY(180deg);
+}
+
+/* Wave Animation */
+.cards-container.scrolled .card {
+  animation: waveMotion 3s ease-in-out infinite;
+}
+
+@keyframes waveMotion {
+
+  0%,
+  100% {
+    transform: translate(-50%, 0) rotateY(180deg) translateY(0);
+  }
+
+  50% {
+    transform: translate(-50%, 0) rotateY(180deg) translateY(-20px);
+  }
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .benefits-heading {
+    font-size: 2rem;
+    /* Adjusted text size for mobile */
+    margin-bottom: 30px;
+    /* Reduced margin for mobile */
+  }
+
+  .cards-container {
+    flex-direction: column;
+    /* Stack cards vertically */
+    height: auto;
+    gap: 20px;
+    /* Adjusted gap between cards */
+    padding: 10px 0;
+    /* Adjusted padding for mobile */
+    margin-top: 100px;
+    /* Reduced margin-top for mobile */
+  }
+
+  .card {
+    position: static;
+    /* Remove absolute positioning */
+    width: 100%;
+    /* Full width for mobile */
+    max-width: 300px;
+    /* Limit card width */
+    height: auto;
+    /* Auto height for mobile */
+    transform: none !important;
+    /* Disable transform for mobile */
+    animation: none !important;
+    /* Disable wave animation for mobile */
+  }
+
+  .card-face {
+    position: relative;
+    /* Reset for mobile */
+    transform: none !important;
+    /* Disable flip for mobile */
+  }
+
+  .card-back {
+    display: none;
+    /* Hide the back side on mobile */
+  }
+
+  .card-front {
+    transform: none;
+    /* Show front side by default on mobile */
+  }
+
+  .cards-container.scrolled .card {
+    animation: none;
+    /* Disable wave animation for mobile */
+  }
+}
