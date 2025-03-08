@@ -1,10 +1,14 @@
 "use client";
-import { fetchBeta, handleBetaResponse } from "@/utils/server/beta";
+
+import React, { useLayoutEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { fetchBeta, handleBetaResponse } from '@/utils/server/beta';
 import { useRouter } from "next/navigation";
-import React, { useLayoutEffect } from "react";
-import styles from '@/styles/beta/dashboard/eval/EvalDash.module.css'; // Ensure this file exists
+import styles from '@/styles/beta/dashboard/eval/EvalDash.module.css';
 
 interface Test {
+  id: string;
   title: string;
   status: string;
   date: string;
@@ -13,26 +17,106 @@ interface Test {
 const EvalDash: React.FC = () => {
   const router = useRouter();
   const [resData, setResData] = React.useState<{ resList: Test[] }>({ resList: [] });
+  const [searchTerm, setSearchTerm] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
+
+  const filteredTests = resData.resList.filter(test =>
+    test.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   useLayoutEffect(() => {
     const initFetch = async () => {
-      const res = await fetchBeta("/v0/eval/list-all", {});
-      handleBetaResponse(res, router, setResData);
+      setIsLoading(true);
+      try {
+        const res = await fetchBeta("/eval/list-all", {});
+        if (res.error) {
+          setError(res.error);
+          return;
+        }
+        handleBetaResponse(res, router, setResData);
+      } catch (error) {
+        setError('Failed to fetch tests');
+      } finally {
+        setIsLoading(false);
+      }
     };
     initFetch();
   }, [router]);
 
+  const handleDelete = async (testId: string) => {
+    if (!testId) {
+      console.error('No test ID provided');
+      return;
+    }
+
+    if (window.confirm('Are you sure you want to delete this test?')) {
+      try {
+        const res = await fetchBeta("/eval/delete", {
+          testId: testId
+        });
+
+        if (res.success) {
+          setResData(prev => ({
+            resList: prev.resList.filter(test => test.id !== testId)
+          }));
+        } else {
+          alert("Failed to delete test: " + (res.error || "Unknown error"));
+        }
+      } catch (error) {
+        console.error('Failed to delete test:', error);
+        alert("An error occurred while deleting the test");
+      }
+    }
+  };
+
+  useLayoutEffect(() => {
+    const initFetch = async () => {
+      setIsLoading(true);
+      try {
+        const res = await fetchBeta("/eval/list-all", {});
+        if (res.error) {
+          setError(res.error);
+          return;
+        }
+        handleBetaResponse(res, router, setResData);
+      } catch (error) {
+        setError('Failed to fetch tests');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    initFetch();
+  }, [router]);
+
+  if (error) {
+    return (
+      <div className={styles.errorContainer}>
+        <p className={styles.errorMessage}>{error}</p>
+        <button onClick={() => window.location.reload()} className={styles.retryButton}>
+          Retry
+        </button>
+      </div>
+    );
+  }
+
   return (
-    <div className={styles.container}>
-      {/* Header */}
-      <header className={styles.header}>
-        <div className={styles.headerLeft}>
-          <img src="/assets/images/logo/gradonix.png" alt="GradeSense" className={styles.logo} />
-          <div className={styles.welcomeContainer}>
-            <h1 className={styles.welcomeTitle}>Welcome back, Evaluator!</h1>
-            <p className={styles.welcomeSubtitle}>Let's get started with your evaluations</p>
-          </div>
+  <div className={styles.container}>
+    {/* Header */}
+    <header className={styles.header}>
+      <div className={styles.headerLeft}>
+        <Image
+          src="/assets/images/logo/gradonix.png"
+          alt="GradeSense"
+          width={150}
+          height={40}
+          className={styles.logo}
+        />
+        <div className={styles.welcomeContainer}>
+          <h1 className={styles.welcomeTitle}>Welcome back, Evaluator!</h1>
+          <p className={styles.welcomeSubtitle}>Let's get started with your evaluations</p>
         </div>
+      </div>
         
         <div className={styles.headerRight}>
           <button
@@ -49,7 +133,12 @@ const EvalDash: React.FC = () => {
 
       {/* Main Content */}
       <main className={styles.mainContent}>
-        {resData.resList?.length > 0 ? (
+        {isLoading ? (
+          <div className={styles.loadingState}>
+            <div className={styles.spinner}></div>
+            <p>Loading tests...</p>
+          </div>
+        ) : resData.resList?.length > 0 ? (
           <>
             <div className={styles.sectionHeader}>
               <h2 className={styles.sectionTitle}>Your Tests</h2>
@@ -57,23 +146,42 @@ const EvalDash: React.FC = () => {
                 type="text"
                 placeholder="Search tests..."
                 className={styles.searchBar}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
             
             <div className={styles.testGrid}>
-              {resData.resList.map((test: any) => (
-                <div key={test.title} className={styles.testCard}>
+              {filteredTests.map((test) => (
+                <div key={test.id || test.title} className={styles.testCard}>
                   <div className={styles.testHeader}>
                     <h3 className={styles.testTitle}>{test.title}</h3>
-                    <span className={`${styles.testStatus} ${test.status === 'Completed' ? styles.completed : styles.inProgress}`}>
+                    <span className={`${styles.testStatus} ${
+                      test.status === 'Completed' ? styles.completed : styles.inProgress
+                    }`}>
                       {test.status}
                     </span>
                   </div>
                   <p className={styles.testDate}>Created on: {test.date}</p>
                   <div className={styles.testActions}>
-                    <button className={styles.actionButton}>View</button>
-                    <button className={styles.actionButton}>Edit</button>
-                    <button className={styles.actionButton}>Delete</button>
+                    <button
+                      className={styles.actionButton}
+                      onClick={() => router.push(`/beta/dashboard/eval/view/${test.id || ''}`)}
+                    >
+                      View
+                    </button>
+                    <button
+                      className={styles.actionButton}
+                      onClick={() => router.push(`/beta/dashboard/eval/edit/${test.id || ''}`)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className={`${styles.actionButton} ${styles.deleteButton}`}
+                      onClick={() => test.id && handleDelete(test.id)}
+                    >
+                      Delete
+                    </button>
                   </div>
                 </div>
               ))}
@@ -110,9 +218,9 @@ const EvalDash: React.FC = () => {
       {/* Footer */}
       <footer className={styles.footer}>
         <div className={styles.footerContent}>
-          <a href="/about" className={styles.footerLink}>About Us</a>
-          <a href="/privacy" className={styles.footerLink}>Privacy Policy</a>
-          <a href="/terms" className={styles.footerLink}>Terms of Service</a>
+          <Link href="/about" className={styles.footerLink}>About Us</Link>
+          <Link href="/privacy" className={styles.footerLink}>Privacy Policy</Link>
+          <Link href="/terms" className={styles.footerLink}>Terms of Service</Link>
           <button className={styles.feedbackButton}>Give Feedback</button>
         </div>
       </footer>

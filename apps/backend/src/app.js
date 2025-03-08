@@ -13,7 +13,6 @@ import { errorMiddleware } from "./middleware/error.middleware.js";
 import { initPublicDir } from "./util/fileHandler.js";
 
 checkEnvs();
-
 initPublicDir();
 
 const limiter = rateLimit({
@@ -26,23 +25,26 @@ const limiter = rateLimit({
 
 const app = express();
 
+// Security middleware
 app.use(helmet());
 app.disable("x-powered-by");
-app.use(
-  cors({
-    origin: CLIENT_URL,
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: CLIENT_URL,
+  credentials: true,
+}));
+
+// Body parsing middleware
 app.use(cookieParser());
 app.use(compression());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(express.static("public"));
 app.use(limiter);
 
-app.use(errorMiddleware);
+// Database initialization
+DBinit();
 
+// Routes
 app.get("/", (req, res) => {
   return res.status(200).json({ success: true });
 });
@@ -50,8 +52,11 @@ app.get("/", (req, res) => {
 app.use("/auth", authRouter);
 app.use("/v0", betaRouter);
 
-DBinit();
+// Error handling middleware should be last
+app.use(errorMiddleware);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+// Start server
+const port = process.env.PORT || 8080;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
