@@ -5,89 +5,74 @@ import { fetchBeta, handleBetaResponse } from "@/utils/server/beta";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useState } from "react";
 
 interface Test {
-  id: string;
   title: string;
   status: string;
-  date: string;
 }
 
 const EvalDash: React.FC = () => {
   const router = useRouter();
-  const [resData, setResData] = React.useState<{ resList: Test[] }>({
+  const [resData, setResData] = useState<{ resList: Test[] }>({
     resList: [],
   });
-  const [searchTerm, setSearchTerm] = React.useState("");
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [error, setError] = React.useState<string | null>(null);
-  useLayoutEffect(() => {
-    const initFetch = async () => {
-      setIsLoading(true);
-      try {
-        const res = await fetchBeta("/v0/eval/list-all", {});
-        console.log(res);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [deleteConfirmation, setDeleteConfirmation] = useState<string | null>(null);
 
-        if (res.error) {
-          setError(res.error);
-          return;
-        }
-        handleBetaResponse(res, router, setResData);
-        console.log(resData);
-      } catch (error) {
-        setError("Failed to fetch tests");
-      } finally {
-        setIsLoading(false);
+  const loadTests = async () => {
+    setIsLoading(true);
+    try {
+      const res = await fetchBeta("/eval/list-all", {});
+      if (res.error) {
+        setError(res.error);
+        return;
       }
-    };
-    initFetch();
-  }, [router]);
-
-  const handleDelete = async (testId: string) => {
-    if (!testId) {
-      console.error("No test ID provided");
-      return;
-    }
-
-    if (window.confirm("Are you sure you want to delete this test?")) {
-      try {
-        const res = await fetchBeta("/eval/delete", {
-          testId: testId,
-        });
-
-        if (res.success) {
-          setResData((prev) => ({
-            resList: prev.resList.filter((test) => test.id !== testId),
-          }));
-        } else {
-          alert("Failed to delete test: " + (res.error || "Unknown error"));
-        }
-      } catch (error) {
-        console.error("Failed to delete test:", error);
-        alert("An error occurred while deleting the test");
-      }
+      handleBetaResponse(res, router, setResData);
+    } catch (error) {
+      setError("Failed to fetch tests");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useLayoutEffect(() => {
-    const initFetch = async () => {
-      setIsLoading(true);
-      try {
-        const res = await fetchBeta("/eval/list-all", {});
-        if (res.error) {
-          setError(res.error);
-          return;
-        }
-        handleBetaResponse(res, router, setResData);
-      } catch (error) {
-        setError("Failed to fetch tests");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    initFetch();
+    loadTests();
   }, [router]);
+
+  const handleDelete = async (testTitle: string) => {
+    if (!testTitle) {
+      console.error("No test title provided");
+      return;
+    }
+
+    try {
+      const res = await fetchBeta("/eval/delete", {
+        testId: testTitle,
+      });
+
+      if (res.success) {
+        // Reload the test list after successful deletion
+        loadTests();
+        setDeleteConfirmation(null);
+      } else {
+        alert("Failed to delete test: " + (res.error || "Unknown error"));
+      }
+    } catch (error) {
+      console.error("Failed to delete test:", error);
+      alert("An error occurred while deleting the test");
+    }
+  };
+
+  const cancelDelete = () => {
+    setDeleteConfirmation(null);
+  };
+
+  const filteredTests = resData.resList?.filter(test => 
+    test.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   if (error) {
     return (
@@ -105,6 +90,32 @@ const EvalDash: React.FC = () => {
 
   return (
     <div className={styles.container}>
+      {/* Delete Confirmation Modal */}
+      {deleteConfirmation && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+            <h3 className={styles.modalTitle}>Confirm Deletion</h3>
+            <p className={styles.modalText}>
+              Are you sure you want to delete "{deleteConfirmation}"? This action cannot be undone.
+            </p>
+            <div className={styles.modalActions}>
+              <button 
+                className={styles.cancelButton}
+                onClick={cancelDelete}
+              >
+                Cancel
+              </button>
+              <button 
+                className={styles.confirmButton}
+                onClick={() => handleDelete(deleteConfirmation)}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <header className={styles.header}>
         <div className={styles.headerLeft}>
@@ -143,7 +154,7 @@ const EvalDash: React.FC = () => {
             <div className={styles.spinner}></div>
             <p>Loading tests...</p>
           </div>
-        ) : resData.resList?.length > 0 ? (
+        ) : filteredTests?.length > 0 ? (
           <>
             <div className={styles.sectionHeader}>
               <h2 className={styles.sectionTitle}>Your Tests</h2>
@@ -157,7 +168,7 @@ const EvalDash: React.FC = () => {
             </div>
 
             <div className={styles.testGrid}>
-              {resData.resList.map(({title,  status}, index) => (
+              {filteredTests.map(({title, status}, index) => (
                 <div key={index} className={styles.testCard}>
                   <div className={styles.testHeader}>
                     <h3 className={styles.testTitle}>{title}</h3>
@@ -171,7 +182,6 @@ const EvalDash: React.FC = () => {
                       {status}
                     </span>
                   </div>
-                  {/* <p className={styles.testDate}>Created on: {test.date}</p> */}
                   <div className={styles.testActions}>
                     <button
                       className={styles.actionButton}
@@ -181,22 +191,12 @@ const EvalDash: React.FC = () => {
                     >
                       View
                     </button>
-                    {/* <button
-                      className={styles.actionButton}
-                      onClick={() =>
-                        router.push(
-                          `/beta/dashboard/eval/edit/${test.id || ""}`
-                        )
-                      }
-                    >
-                      Edit
-                    </button> */}
-                    { <button
+                    <button
                       className={`${styles.actionButton} ${styles.deleteButton}`}
-                      onClick={() => test.id && handleDelete(test.id)}
+                      onClick={() => setDeleteConfirmation(title)}
                     >
                       Delete
-                    </button> }
+                    </button>
                   </div>
                 </div>
               ))}
@@ -209,33 +209,33 @@ const EvalDash: React.FC = () => {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 200 200"
             >
-              {/* Simple document with folded corner */}
+              {/* Simple document with folded corner - Updated colors */}
               <rect
                 x="60"
                 y="40"
                 width="80"
                 height="100"
                 rx="4"
-                fill="#141B2D"
-                stroke="#1E293B"
+                fill="#f4f4f5"
+                stroke="#e4e4e7"
                 strokeWidth="2"
               />
-              <path d="M140 40 L140 60 L120 40 Z" fill="#1E293B" />
+              <path d="M140 40 L140 60 L120 40 Z" fill="#e4e4e7" />
 
               {/* Simple lines representing text */}
-              <rect x="75" y="70" width="50" height="6" rx="2" fill="#1E293B" />
-              <rect x="75" y="90" width="50" height="6" rx="2" fill="#1E293B" />
+              <rect x="75" y="70" width="50" height="6" rx="2" fill="#d4d4d8" />
+              <rect x="75" y="90" width="50" height="6" rx="2" fill="#d4d4d8" />
               <rect
                 x="75"
                 y="110"
                 width="30"
                 height="6"
                 rx="2"
-                fill="#1E293B"
+                fill="#d4d4d8"
               />
 
               {/* Simple plus sign */}
-              <circle cx="100" cy="150" r="15" fill="#5200FF" />
+              <circle cx="100" cy="150" r="15" fill="#7c3aed" />
               <line
                 x1="100"
                 y1="142"

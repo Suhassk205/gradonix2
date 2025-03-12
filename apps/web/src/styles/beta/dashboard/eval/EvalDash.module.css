@@ -1,21 +1,23 @@
 :root {
-  --primary: #7c3aed; /* --color-violet-600 from global.css */
-  --secondary: #2563eb; /* --color-blue-600 from global.css */
-  --success: #10B981; /* Keeping original as no exact match */
-  --warning: #F59E0B; /* Keeping original as no exact match */
-  --text-primary: #18181b; /* --color-zinc-900 from global.css */
-  --text-secondary: #52525b; /* --color-zinc-600 from global.css */
-  --background: #fafafa; /* --color-zinc-50 from global.css */
-  --card-background: #ffffff; /* --color-white from global.css */
-  --border: #e4e4e7; /* --color-zinc-200 from global.css */
-  --hover-bg: #f4f4f5; /* --color-zinc-100 from global.css */
+  --primary: #7c3aed; 
+  --secondary: #2563eb; 
+  --success: #10B981; 
+  --warning: #F59E0B; 
+  --text-primary: #18181b; 
+  --text-secondary: #52525b; 
+  --background: #fafafa; 
+  --card-background: #ffffff; 
+  --border: #e4e4e7; 
+  --hover-bg: #f4f4f5; 
+  --danger: #ef4444; 
 }
 
 .container {
-  min-height: 100svh; /* using 100svh from global.css */
+  min-height: 100svh; 
   background-color: var(--background);
   display: flex;
   flex-direction: column;
+  position: relative; 
 }
 
 /* Header Styles */
@@ -23,7 +25,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--usmall) var(--umedium); /* using --usmall and --umedium from global.css */
+  padding: var(--usmall) var(--umedium); 
   background: var(--card-background);
   border-bottom: 1px solid var(--border);
 }
@@ -31,12 +33,12 @@
 .headerLeft {
   display: flex;
   align-items: center;
-  gap: var(--ularge); /* using --ularge from global.css */
+  gap: var(--ularge); 
 }
 
 .logo {
   height: 40px;
-  border-radius: var(--usmall); /* using --usmall from global.css */
+  border-radius: var(--usmall); 
   width: 38px;
 }
 
@@ -47,7 +49,7 @@
 
 .welcomeTitle {
   color: var(--text-primary);
-  font-size: var(--font-large); /* using --font-large from global.css */
+  font-size: var(--font-large); 
   margin: 0;
   font-weight: 600;
 }
@@ -55,30 +57,30 @@
 .welcomeSubtitle {
   color: var(--text-secondary);
   margin: 0;
-  font-size: var(--font-xsmall); /* using --font-xsmall from global.css */
+  font-size: var(--font-xsmall); 
 }
 
 .headerRight {
   display: flex;
   align-items: center;
-  gap: var(--ularge); /* using --ularge from global.css */
+  gap: var(--ularge); 
 }
 
 .newButton {
   background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-  color: var(--color-white); /* using --color-white from global.css */
-  padding: var(--usmaller) var(--ularge); /* using --usmaller and --ularge from global.css */
+  color: var(--color-white); 
+  padding: var(--usmaller) var(--ularge); 
   border: none;
-  border-radius: var(--usmall); /* using --usmall from global.css */
+  border-radius: var(--usmall); 
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 var(--uxxsmall) var(--usmall) rgba(79, 70, 229, 0.2); /* using --uxxsmall and --usmall from global.css */
+  box-shadow: 0 var(--uxxsmall) var(--usmall) rgba(79, 70, 229, 0.2); 
 }
 
 .newButton:hover {
   transform: translateY(-1px);
-  box-shadow: 0 var(--usmall) var(--umedium) rgba(79, 70, 229, 0.3); /* using --usmall and --umedium from global.css */
+  box-shadow: 0 var(--usmall) var(--umedium) rgba(79, 70, 229, 0.3); 
 }
 
 .profile {
@@ -89,14 +91,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-white); /* using --color-white from global.css */
+  color: var(--color-white); 
   font-weight: 500;
 }
 
 /* Main Content Styles */
 .mainContent {
   flex: 1;
-  padding: var(--umedium); /* using --umedium from global.css */
+  padding: var(--umedium); 
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
@@ -106,20 +108,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--umedium); /* using --umedium from global.css */
+  margin-bottom: var(--umedium); 
 }
 
 .sectionTitle {
   color: var(--text-primary);
-  font-size: var(--font-medium); /* using --font-medium from global.css */
+  font-size: var(--font-medium); 
   font-weight: 600;
   margin: 0;
 }
 
 .searchBar {
-  padding: var(--usmaller) var(--usmall); /* using --usmaller and --usmall from global.css */
+  padding: var(--usmaller) var(--usmall); 
   border: 1px solid var(--border);
-  border-radius: var(--usmall); /* using --usmall from global.css */
+  border-radius: var(--usmall); 
   width: 300px;
   background: var(--card-background);
   color: var(--text-primary);
@@ -135,13 +137,13 @@
 .testGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: var(--ularge); /* using --ularge from global.css */
+  gap: var(--ularge); 
 }
 
 .testCard {
   background: var(--card-background);
-  padding: var(--ularge); /* using --ularge from global.css */
-  border-radius: var(--usmall); /* using --usmall from global.css */
+  padding: var(--ularge); 
+  border-radius: var(--usmall); 
   border: 1px solid var(--border);
   transition: all 0.3s ease;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
@@ -149,27 +151,27 @@
 
 .testCard:hover {
   transform: translateY(-2px);
-  box-shadow: 0 var(--usmall) var(--umedium) rgba(0,0,0,0.1); /* using --usmall and --umedium from global.css */
+  box-shadow: 0 var(--usmall) var(--umedium) rgba(0,0,0,0.1); 
 }
 
 .testHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--usmaller); /* using --usmaller from global.css */
+  margin-bottom: var(--usmaller); 
 }
 
 .testTitle {
   color: var(--text-primary);
-  font-size: var(--font-smaller); /* using --font-smaller from global.css */
+  font-size: var(--font-smaller); 
   font-weight: 600;
   margin: 0;
 }
 
 .testStatus {
-  font-size: var(--font-xxsmall); /* using --font-xxsmall from global.css */
-  padding: var(--uxxsmall) var(--usmaller); /* using --uxxsmall and --usmaller from global.css */
-  border-radius: var(--usmall); /* using --usmall from global.css */
+  font-size: var(--font-xxsmall); 
+  padding: var(--uxxsmall) var(--usmaller); 
+  border-radius: var(--usmall); 
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -187,28 +189,118 @@
 
 .testDate {
   color: var(--text-secondary);
-  font-size: var(--font-xsmall); /* using --font-xsmall from global.css */
-  margin-bottom: var(--usmall); /* using --usmall from global.css */
+  font-size: var(--font-xsmall); 
+  margin-bottom: var(--usmall); 
 }
 
 .testActions {
   display: flex;
-  gap: var(--usmaller); /* using --usmaller from global.css */
+  gap: var(--usmaller); 
 }
 
 .actionButton {
   flex: 1;
-  padding: var(--usmaller) var(--usmall); /* using --usmaller and --usmall from global.css */
+  padding: var(--usmaller) var(--usmall); 
   border: none;
-  border-radius: var(--uxxsmall); /* using --uxxsmall from global.css */
+  border-radius: var(--uxxsmall); 
   background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-  color: var(--color-white); /* using --color-white from global.css */
+  color: var(--color-white); 
   cursor: pointer;
   transition: opacity 0.2s;
 }
 
 .actionButton:hover {
   opacity: 0.9;
+}
+
+.deleteButton {
+  background: linear-gradient(135deg, var(--danger) 0%, #b91c1c 100%);
+}
+
+/* Delete Modal Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: var(--card-background);
+  border-radius: var(--usmall);
+  padding: var(--ularge);
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 var(--usmall) var(--ularge) rgba(0, 0, 0, 0.2);
+  animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modalTitle {
+  color: var(--text-primary);
+  font-size: var(--font-medium);
+  font-weight: 600;
+  margin-bottom: var(--usmall);
+}
+
+.modalText {
+  color: var(--text-secondary);
+  font-size: var(--font-smaller);
+  margin-bottom: var(--ularge);
+  line-height: 1.6;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--usmall);
+}
+
+.cancelButton {
+  padding: var(--usmaller) var(--umedium);
+  border: 1px solid var(--border);
+  border-radius: var(--usmall);
+  background: var(--card-background);
+  color: var(--text-primary);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancelButton:hover {
+  background: var(--hover-bg);
+}
+
+.confirmButton {
+  padding: var(--usmaller) var(--umedium);
+  border: none;
+  border-radius: var(--usmall);
+  background: var(--danger);
+  color: var(--color-white);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.confirmButton:hover {
+  background: #b91c1c;
 }
 
 /* Empty State Styles */
@@ -224,21 +316,21 @@
 .illustration {
   width: 200px;
   height: 200px;
-  margin-bottom: var(--umedium); /* using --umedium from global.css */
+  margin-bottom: var(--umedium); 
 }
 
 .emptyMessage {
   color: var(--text-secondary);
-  font-size: var(--font-medium); /* using --font-medium from global.css */
-  margin-bottom: var(--umedium); /* using --umedium from global.css */
+  font-size: var(--font-medium); 
+  margin-bottom: var(--umedium); 
 }
 
 .ctaButton {
   background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-  color: var(--color-white); /* using --color-white from global.css */
-  padding: var(--usmall) var(--umedium); /* using --usmall and --umedium from global.css */
+  color: var(--color-white); 
+  padding: var(--usmall) var(--umedium); 
   border: none;
-  border-radius: var(--usmall); /* using --usmall from global.css */
+  border-radius: var(--usmall); 
   font-weight: 500;
   cursor: pointer;
   transition: opacity 0.2s;
@@ -255,21 +347,21 @@
   align-items: center;
   justify-content: center;
   min-height: 400px;
-  padding: var(--umedium); /* using --umedium from global.css */
+  padding: var(--umedium); 
 }
 
 .errorMessage {
   color: #dc2626;
-  margin-bottom: var(--usmall); /* using --usmall from global.css */
+  margin-bottom: var(--usmall); 
   font-size: 1.1rem;
 }
 
 .retryButton {
-  padding: var(--usmaller) var(--usmall); /* using --usmaller and --usmall from global.css */
+  padding: var(--usmaller) var(--usmall); 
   background: #4F46E5;
-  color: var(--color-white); /* using --color-white from global.css */
+  color: var(--color-white); 
   border: none;
-  border-radius: var(--uxsmall); /* using --uxsmall from global.css */
+  border-radius: var(--uxsmall); 
   cursor: pointer;
 }
 
@@ -287,14 +379,14 @@
 .footerContent {
   display: flex;
   justify-content: center;
-  gap: var(--umedium); /* using --umedium from global.css */
-  padding: var(--ularge) var(--umedium); /* using --ularge and --umedium from global.css */
+  gap: var(--umedium); 
+  padding: var(--ularge) var(--umedium);
 }
 
 .footerLink {
   color: var(--text-secondary);
   text-decoration: none;
-  font-size: var(--font-xsmall); /* using --font-xsmall from global.css */
+  font-size: var(--font-xsmall); 
   transition: color 0.2s;
 }
 
@@ -307,7 +399,7 @@
   border: none;
   color: var(--text-secondary);
   cursor: pointer;
-  font-size: var(--font-xsmall); /* using --font-xsmall from global.css */
+  font-size: var(--font-xsmall); 
   padding: 0;
 }
 
@@ -331,7 +423,7 @@
   border-radius: 50%;
   border-top-color: var(--primary);
   animation: spin 1s linear infinite;
-  margin-bottom: var(--usmall); /* using --usmall from global.css */
+  margin-bottom: var(--usmall); 
 }
 
 @keyframes spin {
