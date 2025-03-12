@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  deleteEvaluation,
   evalGetDetailView,
   evalResult,
   evaluateTest,
@@ -23,16 +24,8 @@ betaRouter.post(
   newEvaluation
 );
 
-// Add delete route directly here instead of importing
-betaRouter.post("/eval/delete", authProtected2, async (req, res) => {
-  try {
-    const { testId } = req.body;
-    // Add your delete logic here
-    res.json({ success: true });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+// Updated delete route to use the controller function
+betaRouter.post("/eval/delete", authProtected2, deleteEvaluation);
 
 betaRouter.post("/eval/view", authProtected2, evalGetDetailView);
 betaRouter.post("/eval/evaluate", authProtected2, evaluateTest);

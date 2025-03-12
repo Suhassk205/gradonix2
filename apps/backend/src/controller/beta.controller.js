@@ -1,4 +1,5 @@
 import fs from "fs";
+import path from "path";
 import { SERVER_URL } from "../config/env.config.js";
 import { evaluate } from "../service/anthropic/pdfReader.js";
 import { isValidUsername } from "../util/authCredValidator.js";
@@ -170,38 +171,6 @@ export const evalGetDetailView = async (req, res) => {
   }
 };
 
-/* export const evalAnalyzeQ = async (req, res) => {
-  try {
-    const { title } = req.body;
-
-    if (!title || !fs.existsSync(`./public/eval/${title}/eval.json`)) {
-      return res
-        .status(200)
-        .json({ success: false, resRoute: "/beta/dashboard" });
-    }
-
-    const evaljson = JSON.parse(
-      fs.readFileSync(`./public/eval/${title}/eval.json`, "utf-8")
-    );
-    if (evaljson.question.disabled) {
-      res.status(200).json({
-        success: false,
-        resData: {
-          error: {
-            question: "disabled",
-          },
-        },
-      });
-    }
-
-    const st = await questionToJson(evaljson.question.location, title);
-
-    return res.status(200).json({ success: true, resData: { st } });
-  } catch (error) {
-    return res.status(500).json({ resErrMsg: error.message });
-  }
-}; */
-
 export const evaluateTest = async (req, res) => {
   res.setTimeout(100000, () => {
     return res.status(500).json({ resErrMsg: "Timeout" });
@@ -265,10 +234,95 @@ export const evalResult = async (req, res) => {
   }
 };
 
+export const deleteEvaluation = async (req, res) => {
+  try {
+    const { testId } = req.body;
+    
+    if (!testId) {
+      return res.status(400).json({
+        success: false,
+        error: "Test ID is required"
+      });
+    }
+    
+    const evalPath = `./public/eval/${testId}`;
+    
+    // Check if the test directory exists
+    if (!fs.existsSync(evalPath)) {
+      return res.status(404).json({
+        success: false,
+        error: "Test not found"
+      });
+    }
+    
+    // Read eval.json to get file paths
+    const evalJsonPath = path.join(evalPath, "eval.json");
+    if (fs.existsSync(evalJsonPath)) {
+      const evalData = JSON.parse(fs.readFileSync(evalJsonPath, "utf-8"));
+      
+      // Delete question file
+      if (evalData.question && evalData.question.location) {
+        deleteFileIfExists(evalData.question.location);
+      }
+      
+      // Delete answer file
+      if (evalData.answer && evalData.answer.location) {
+        deleteFileIfExists(evalData.answer.location);
+      }
+      
+      // Delete model file
+      if (evalData.model && evalData.model.location) {
+        deleteFileIfExists(evalData.model.location);
+      }
+      
+      // Delete eval.json
+      deleteFileIfExists(evalJsonPath);
+    }
+    
+    // Delete result.json if exists
+    const resultJsonPath = path.join(evalPath, "result.json");
+    if (fs.existsSync(resultJsonPath)) {
+      deleteFileIfExists(resultJsonPath);
+    }
+    
+    // Delete any other files in the directory recursively
+    deleteDirectoryRecursive(evalPath);
+    
+    return res.status(200).json({
+      success: true,
+      message: "Test deleted successfully"
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+};
+
 const deleteTheNewFiles = (files) => {
   for (let file in files) {
     const dir = `${files[file][0].destination}${files[file][0].filename}`;
     deleteFileIfExists(dir);
+  }
+};
+
+// Helper function to recursively delete a directory
+const deleteDirectoryRecursive = (dirPath) => {
+  if (fs.existsSync(dirPath)) {
+    fs.readdirSync(dirPath).forEach((file) => {
+      const curPath = path.join(dirPath, file);
+      if (fs.lstatSync(curPath).isDirectory()) {
+        // Recursive call for directories
+        deleteDirectoryRecursive(curPath);
+      } else {
+        // Delete file
+        fs.unlinkSync(curPath);
+      }
+    });
+    
+    // Delete the empty directory
+    fs.rmdirSync(dirPath);
   }
 };
 

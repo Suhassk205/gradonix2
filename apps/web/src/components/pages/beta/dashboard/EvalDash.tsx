@@ -25,7 +25,7 @@ const EvalDash: React.FC = () => {
   const loadTests = async () => {
     setIsLoading(true);
     try {
-      const res = await fetchBeta("/eval/list-all", {});
+      const res = await fetchBeta("/v0/eval/list-all", {});
       if (res.error) {
         setError(res.error);
         return;
@@ -49,7 +49,7 @@ const EvalDash: React.FC = () => {
     }
 
     try {
-      const res = await fetchBeta("/eval/delete", {
+      const res = await fetchBeta("/v0/eval/delete", {
         testId: testTitle,
       });
 
