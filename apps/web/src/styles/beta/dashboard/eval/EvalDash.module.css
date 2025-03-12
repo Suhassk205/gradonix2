@@ -1,18 +1,18 @@
 :root {
-  --primary: #4F46E5;
-  --secondary: #7C3AED;
-  --success: #10B981;
-  --warning: #F59E0B;
-  --text-primary: #111827;
-  --text-secondary: #4B5563;
-  --background: #F9FAFB;
-  --card-background: #FFFFFF;
-  --border: #E5E7EB;
-  --hover-bg: #F3F4F6;
+  --primary: #7c3aed; /* --color-violet-600 from global.css */
+  --secondary: #2563eb; /* --color-blue-600 from global.css */
+  --success: #10B981; /* Keeping original as no exact match */
+  --warning: #F59E0B; /* Keeping original as no exact match */
+  --text-primary: #18181b; /* --color-zinc-900 from global.css */
+  --text-secondary: #52525b; /* --color-zinc-600 from global.css */
+  --background: #fafafa; /* --color-zinc-50 from global.css */
+  --card-background: #ffffff; /* --color-white from global.css */
+  --border: #e4e4e7; /* --color-zinc-200 from global.css */
+  --hover-bg: #f4f4f5; /* --color-zinc-100 from global.css */
 }
 
 .container {
-  min-height: 100vh;
+  min-height: 100svh; /* using 100svh from global.css */
   background-color: var(--background);
   display: flex;
   flex-direction: column;
@@ -23,7 +23,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: var(--usmall) var(--umedium); /* using --usmall and --umedium from global.css */
   background: var(--card-background);
   border-bottom: 1px solid var(--border);
 }
@@ -31,12 +31,12 @@
 .headerLeft {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: var(--ularge); /* using --ularge from global.css */
 }
 
 .logo {
   height: 40px;
-  border-radius: 1rem;
+  border-radius: var(--usmall); /* using --usmall from global.css */
   width: 38px;
 }
 
@@ -47,7 +47,7 @@
 
 .welcomeTitle {
   color: var(--text-primary);
-  font-size: 1.5rem;
+  font-size: var(--font-large); /* using --font-large from global.css */
   margin: 0;
   font-weight: 600;
 }
@@ -55,30 +55,30 @@
 .welcomeSubtitle {
   color: var(--text-secondary);
   margin: 0;
-  font-size: 0.875rem;
+  font-size: var(--font-xsmall); /* using --font-xsmall from global.css */
 }
 
 .headerRight {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: var(--ularge); /* using --ularge from global.css */
 }
 
 .newButton {
   background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-  color: white;
-  padding: 0.75rem 1.5rem;
+  color: var(--color-white); /* using --color-white from global.css */
+  padding: var(--usmaller) var(--ularge); /* using --usmaller and --ularge from global.css */
   border: none;
-  border-radius: 0.5rem;
+  border-radius: var(--usmall); /* using --usmall from global.css */
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.2);
+  box-shadow: 0 var(--uxxsmall) var(--usmall) rgba(79, 70, 229, 0.2); /* using --uxxsmall and --usmall from global.css */
 }
 
 .newButton:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 6px rgba(79, 70, 229, 0.3);
+  box-shadow: 0 var(--usmall) var(--umedium) rgba(79, 70, 229, 0.3); /* using --usmall and --umedium from global.css */
 }
 
 .profile {
@@ -89,14 +89,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--color-white); /* using --color-white from global.css */
   font-weight: 500;
 }
 
 /* Main Content Styles */
 .mainContent {
   flex: 1;
-  padding: 2rem;
+  padding: var(--umedium); /* using --umedium from global.css */
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
@@ -106,20 +106,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: var(--umedium); /* using --umedium from global.css */
 }
 
 .sectionTitle {
   color: var(--text-primary);
-  font-size: 1.25rem;
+  font-size: var(--font-medium); /* using --font-medium from global.css */
   font-weight: 600;
   margin: 0;
 }
 
 .searchBar {
-  padding: 0.75rem 1rem;
+  padding: var(--usmaller) var(--usmall); /* using --usmaller and --usmall from global.css */
   border: 1px solid var(--border);
-  border-radius: 0.5rem;
+  border-radius: var(--usmall); /* using --usmall from global.css */
   width: 300px;
   background: var(--card-background);
   color: var(--text-primary);
@@ -135,13 +135,13 @@
 .testGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
+  gap: var(--ularge); /* using --ularge from global.css */
 }
 
 .testCard {
   background: var(--card-background);
-  padding: 1.5rem;
-  border-radius: 1rem;
+  padding: var(--ularge); /* using --ularge from global.css */
+  border-radius: var(--usmall); /* using --usmall from global.css */
   border: 1px solid var(--border);
   transition: all 0.3s ease;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
@@ -149,27 +149,27 @@
 
 .testCard:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 var(--usmall) var(--umedium) rgba(0,0,0,0.1); /* using --usmall and --umedium from global.css */
 }
 
 .testHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--usmaller); /* using --usmaller from global.css */
 }
 
 .testTitle {
   color: var(--text-primary);
-  font-size: 1rem;
+  font-size: var(--font-smaller); /* using --font-smaller from global.css */
   font-weight: 600;
   margin: 0;
 }
 
 .testStatus {
-  font-size: 0.75rem;
-  padding: 0.25rem 0.75rem;
-  border-radius: 1rem;
+  font-size: var(--font-xxsmall); /* using --font-xxsmall from global.css */
+  padding: var(--uxxsmall) var(--usmaller); /* using --uxxsmall and --usmaller from global.css */
+  border-radius: var(--usmall); /* using --usmall from global.css */
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -187,22 +187,22 @@
 
 .testDate {
   color: var(--text-secondary);
-  font-size: 0.875rem;
-  margin-bottom: 1rem;
+  font-size: var(--font-xsmall); /* using --font-xsmall from global.css */
+  margin-bottom: var(--usmall); /* using --usmall from global.css */
 }
 
 .testActions {
   display: flex;
-  gap: 0.5rem;
+  gap: var(--usmaller); /* using --usmaller from global.css */
 }
 
 .actionButton {
   flex: 1;
-  padding: 0.5rem 1rem;
+  padding: var(--usmaller) var(--usmall); /* using --usmaller and --usmall from global.css */
   border: none;
-  border-radius: 0.25rem;
+  border-radius: var(--uxxsmall); /* using --uxxsmall from global.css */
   background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-  color: white;
+  color: var(--color-white); /* using --color-white from global.css */
   cursor: pointer;
   transition: opacity 0.2s;
 }
@@ -224,21 +224,21 @@
 .illustration {
   width: 200px;
   height: 200px;
-  margin-bottom: 2rem;
+  margin-bottom: var(--umedium); /* using --umedium from global.css */
 }
 
 .emptyMessage {
   color: var(--text-secondary);
-  font-size: 1.125rem;
-  margin-bottom: 2rem;
+  font-size: var(--font-medium); /* using --font-medium from global.css */
+  margin-bottom: var(--umedium); /* using --umedium from global.css */
 }
 
 .ctaButton {
   background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-  color: white;
-  padding: 1rem 2rem;
+  color: var(--color-white); /* using --color-white from global.css */
+  padding: var(--usmall) var(--umedium); /* using --usmall and --umedium from global.css */
   border: none;
-  border-radius: 0.5rem;
+  border-radius: var(--usmall); /* using --usmall from global.css */
   font-weight: 500;
   cursor: pointer;
   transition: opacity 0.2s;
@@ -255,21 +255,21 @@
   align-items: center;
   justify-content: center;
   min-height: 400px;
-  padding: 2rem;
+  padding: var(--umedium); /* using --umedium from global.css */
 }
 
 .errorMessage {
   color: #dc2626;
-  margin-bottom: 1rem;
+  margin-bottom: var(--usmall); /* using --usmall from global.css */
   font-size: 1.1rem;
 }
 
 .retryButton {
-  padding: 0.5rem 1rem;
+  padding: var(--usmaller) var(--usmall); /* using --usmaller and --usmall from global.css */
   background: #4F46E5;
-  color: white;
+  color: var(--color-white); /* using --color-white from global.css */
   border: none;
-  border-radius: 0.375rem;
+  border-radius: var(--uxsmall); /* using --uxsmall from global.css */
   cursor: pointer;
 }
 
@@ -287,14 +287,14 @@
 .footerContent {
   display: flex;
   justify-content: center;
-  gap: 2rem;
-  padding: 1.5rem 2rem;
+  gap: var(--umedium); /* using --umedium from global.css */
+  padding: var(--ularge) var(--umedium); /* using --ularge and --umedium from global.css */
 }
 
 .footerLink {
   color: var(--text-secondary);
   text-decoration: none;
-  font-size: 0.875rem;
+  font-size: var(--font-xsmall); /* using --font-xsmall from global.css */
   transition: color 0.2s;
 }
 
@@ -307,7 +307,7 @@
   border: none;
   color: var(--text-secondary);
   cursor: pointer;
-  font-size: 0.875rem;
+  font-size: var(--font-xsmall); /* using --font-xsmall from global.css */
   padding: 0;
 }
 
@@ -331,7 +331,7 @@
   border-radius: 50%;
   border-top-color: var(--primary);
   animation: spin 1s linear infinite;
-  margin-bottom: 1rem;
+  margin-bottom: var(--usmall); /* using --usmall from global.css */
 }
 
 @keyframes spin {

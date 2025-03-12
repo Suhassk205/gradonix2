@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useLayoutEffect } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { fetchBeta, handleBetaResponse } from '@/utils/server/beta';
+import styles from "@/styles/beta/dashboard/eval/EvalDash.module.css";
+import { fetchBeta, handleBetaResponse } from "@/utils/server/beta";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import styles from '@/styles/beta/dashboard/eval/EvalDash.module.css';
+import React, { useLayoutEffect } from "react";
 
 interface Test {
   id: string;
@@ -16,27 +16,27 @@ interface Test {
 
 const EvalDash: React.FC = () => {
   const router = useRouter();
-  const [resData, setResData] = React.useState<{ resList: Test[] }>({ resList: [] });
-  const [searchTerm, setSearchTerm] = React.useState('');
+  const [resData, setResData] = React.useState<{ resList: Test[] }>({
+    resList: [],
+  });
+  const [searchTerm, setSearchTerm] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
-
-  const filteredTests = resData.resList.filter(test =>
-    test.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   useLayoutEffect(() => {
     const initFetch = async () => {
       setIsLoading(true);
       try {
-        const res = await fetchBeta("/eval/list-all", {});
+        const res = await fetchBeta("/v0/eval/list-all", {});
+        console.log(res);
+
         if (res.error) {
           setError(res.error);
           return;
         }
         handleBetaResponse(res, router, setResData);
+        console.log(resData);
       } catch (error) {
-        setError('Failed to fetch tests');
+        setError("Failed to fetch tests");
       } finally {
         setIsLoading(false);
       }
@@ -46,25 +46,25 @@ const EvalDash: React.FC = () => {
 
   const handleDelete = async (testId: string) => {
     if (!testId) {
-      console.error('No test ID provided');
+      console.error("No test ID provided");
       return;
     }
 
-    if (window.confirm('Are you sure you want to delete this test?')) {
+    if (window.confirm("Are you sure you want to delete this test?")) {
       try {
         const res = await fetchBeta("/eval/delete", {
-          testId: testId
+          testId: testId,
         });
 
         if (res.success) {
-          setResData(prev => ({
-            resList: prev.resList.filter(test => test.id !== testId)
+          setResData((prev) => ({
+            resList: prev.resList.filter((test) => test.id !== testId),
           }));
         } else {
           alert("Failed to delete test: " + (res.error || "Unknown error"));
         }
       } catch (error) {
-        console.error('Failed to delete test:', error);
+        console.error("Failed to delete test:", error);
         alert("An error occurred while deleting the test");
       }
     }
@@ -81,7 +81,7 @@ const EvalDash: React.FC = () => {
         }
         handleBetaResponse(res, router, setResData);
       } catch (error) {
-        setError('Failed to fetch tests');
+        setError("Failed to fetch tests");
       } finally {
         setIsLoading(false);
       }
@@ -93,7 +93,10 @@ const EvalDash: React.FC = () => {
     return (
       <div className={styles.errorContainer}>
         <p className={styles.errorMessage}>{error}</p>
-        <button onClick={() => window.location.reload()} className={styles.retryButton}>
+        <button
+          onClick={() => window.location.reload()}
+          className={styles.retryButton}
+        >
           Retry
         </button>
       </div>
@@ -101,23 +104,25 @@ const EvalDash: React.FC = () => {
   }
 
   return (
-  <div className={styles.container}>
-    {/* Header */}
-    <header className={styles.header}>
-      <div className={styles.headerLeft}>
-        <Image
-          src="/assets/images/logo/gradonix.png"
-          alt="GradeSense"
-          width={150}
-          height={40}
-          className={styles.logo}
-        />
-        <div className={styles.welcomeContainer}>
-          <h1 className={styles.welcomeTitle}>Welcome back, Evaluator!</h1>
-          <p className={styles.welcomeSubtitle}>Let's get started with your evaluations</p>
+    <div className={styles.container}>
+      {/* Header */}
+      <header className={styles.header}>
+        <div className={styles.headerLeft}>
+          <Image
+            src="/assets/images/logo/gradonix.png"
+            alt="GradeSense"
+            width={150}
+            height={40}
+            className={styles.logo}
+          />
+          <div className={styles.welcomeContainer}>
+            <h1 className={styles.welcomeTitle}>Welcome back, Evaluator!</h1>
+            <p className={styles.welcomeSubtitle}>
+              Let's get started with your evaluations
+            </p>
+          </div>
         </div>
-      </div>
-        
+
         <div className={styles.headerRight}>
           <button
             className={styles.newButton}
@@ -150,38 +155,48 @@ const EvalDash: React.FC = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-            
+
             <div className={styles.testGrid}>
-              {filteredTests.map((test) => (
-                <div key={test.id || test.title} className={styles.testCard}>
+              {resData.resList.map(({title,  status}, index) => (
+                <div key={index} className={styles.testCard}>
                   <div className={styles.testHeader}>
-                    <h3 className={styles.testTitle}>{test.title}</h3>
-                    <span className={`${styles.testStatus} ${
-                      test.status === 'Completed' ? styles.completed : styles.inProgress
-                    }`}>
-                      {test.status}
+                    <h3 className={styles.testTitle}>{title}</h3>
+                    <span
+                      className={`${styles.testStatus} ${
+                        status === "Completed"
+                          ? styles.completed
+                          : styles.inProgress
+                      }`}
+                    >
+                      {status}
                     </span>
                   </div>
-                  <p className={styles.testDate}>Created on: {test.date}</p>
+                  {/* <p className={styles.testDate}>Created on: {test.date}</p> */}
                   <div className={styles.testActions}>
                     <button
                       className={styles.actionButton}
-                      onClick={() => router.push(`/beta/dashboard/eval/view/${test.id || ''}`)}
+                      onClick={() =>
+                        router.push(`/beta/dashboard/eval/${title}/view`)
+                      }
                     >
                       View
                     </button>
-                    <button
+                    {/* <button
                       className={styles.actionButton}
-                      onClick={() => router.push(`/beta/dashboard/eval/edit/${test.id || ''}`)}
+                      onClick={() =>
+                        router.push(
+                          `/beta/dashboard/eval/edit/${test.id || ""}`
+                        )
+                      }
                     >
                       Edit
-                    </button>
-                    <button
+                    </button> */}
+                    { <button
                       className={`${styles.actionButton} ${styles.deleteButton}`}
                       onClick={() => test.id && handleDelete(test.id)}
                     >
                       Delete
-                    </button>
+                    </button> }
                   </div>
                 </div>
               ))}
@@ -189,22 +204,60 @@ const EvalDash: React.FC = () => {
           </>
         ) : (
           <div className={styles.emptyState}>
-            <svg className={styles.illustration} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+            <svg
+              className={styles.illustration}
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 200 200"
+            >
               {/* Simple document with folded corner */}
-              <rect x="60" y="40" width="80" height="100" rx="4" fill="#141B2D" stroke="#1E293B" strokeWidth="2"/>
-              <path d="M140 40 L140 60 L120 40 Z" fill="#1E293B"/>
-              
+              <rect
+                x="60"
+                y="40"
+                width="80"
+                height="100"
+                rx="4"
+                fill="#141B2D"
+                stroke="#1E293B"
+                strokeWidth="2"
+              />
+              <path d="M140 40 L140 60 L120 40 Z" fill="#1E293B" />
+
               {/* Simple lines representing text */}
-              <rect x="75" y="70" width="50" height="6" rx="2" fill="#1E293B"/>
-              <rect x="75" y="90" width="50" height="6" rx="2" fill="#1E293B"/>
-              <rect x="75" y="110" width="30" height="6" rx="2" fill="#1E293B"/>
-              
+              <rect x="75" y="70" width="50" height="6" rx="2" fill="#1E293B" />
+              <rect x="75" y="90" width="50" height="6" rx="2" fill="#1E293B" />
+              <rect
+                x="75"
+                y="110"
+                width="30"
+                height="6"
+                rx="2"
+                fill="#1E293B"
+              />
+
               {/* Simple plus sign */}
-              <circle cx="100" cy="150" r="15" fill="#5200FF"/>
-              <line x1="100" y1="142" x2="100" y2="158" stroke="white" strokeWidth="3" strokeLinecap="round"/>
-              <line x1="92" y1="150" x2="108" y2="150" stroke="white" strokeWidth="3" strokeLinecap="round"/>
+              <circle cx="100" cy="150" r="15" fill="#5200FF" />
+              <line
+                x1="100"
+                y1="142"
+                x2="100"
+                y2="158"
+                stroke="white"
+                strokeWidth="3"
+                strokeLinecap="round"
+              />
+              <line
+                x1="92"
+                y1="150"
+                x2="108"
+                y2="150"
+                stroke="white"
+                strokeWidth="3"
+                strokeLinecap="round"
+              />
             </svg>
-            <p className={styles.emptyMessage}>You haven't created any tests yet. Ready to get started?</p>
+            <p className={styles.emptyMessage}>
+              You haven't created any tests yet. Ready to get started?
+            </p>
             <button
               className={styles.ctaButton}
               onClick={() => router.push("/beta/dashboard/eval/new")}
@@ -218,9 +271,15 @@ const EvalDash: React.FC = () => {
       {/* Footer */}
       <footer className={styles.footer}>
         <div className={styles.footerContent}>
-          <Link href="/about" className={styles.footerLink}>About Us</Link>
-          <Link href="/privacy" className={styles.footerLink}>Privacy Policy</Link>
-          <Link href="/terms" className={styles.footerLink}>Terms of Service</Link>
+          <Link href="/about" className={styles.footerLink}>
+            About Us
+          </Link>
+          <Link href="/privacy" className={styles.footerLink}>
+            Privacy Policy
+          </Link>
+          <Link href="/terms" className={styles.footerLink}>
+            Terms of Service
+          </Link>
           <button className={styles.feedbackButton}>Give Feedback</button>
         </div>
       </footer>
@@ -229,4 +288,3 @@ const EvalDash: React.FC = () => {
 };
 
 export default EvalDash;
-
