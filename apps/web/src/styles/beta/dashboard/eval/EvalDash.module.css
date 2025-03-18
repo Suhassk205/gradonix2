@@ -25,7 +25,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--usmall) var(--umedium); 
+  padding: var(--usmall) 10px; 
   background: var(--card-background);
   border-bottom: 1px solid var(--border);
 }
@@ -33,13 +33,13 @@
 .headerLeft {
   display: flex;
   align-items: center;
-  gap: var(--ularge); 
+  gap:10px;
 }
 
 .logo {
-  height: 40px;
+  height: 60px;
   border-radius: var(--usmall); 
-  width: 38px;
+  width: 62px;
 }
 
 .welcomeContainer {
@@ -64,6 +64,7 @@
   display: flex;
   align-items: center;
   gap: var(--ularge); 
+  padding-right: 20px;
 }
 
 .newButton {
